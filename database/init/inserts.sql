@@ -1,0 +1,1 @@
+INSERT INTO tb_restaurant VALUES (1, 'Capitão Salada');

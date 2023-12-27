@@ -5,7 +5,7 @@ services:
     container_name: mysqldb
     image: mysql:5.7
     environment:
-      - MYSQL_DATABASE=quick-grab
+      - MYSQL_DATABASE=quickgrab
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_ROOT=root
     command: mysqld --character-set-server=utf8 --collation-server=utf8_general_ci
@@ -14,9 +14,9 @@ services:
     volumes:
       - "quick-grab-database-volume:/var/lib/mysql"
       - "./database/init/creates.sql:/docker-entrypoint-initdb.d/1.sql"
-      # - "./database/init/inserts.sql:/docker-entrypoint-initdb.d/2.sql"
+#      - "./database/init/inserts.sql:/docker-entrypoint-initdb.d/2.sql"
     networks:
-      - askin-bridge
+      - quick-grab-bridge
     healthcheck:
       test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
       timeout: 20s
