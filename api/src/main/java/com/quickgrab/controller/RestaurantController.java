@@ -1,12 +1,15 @@
 package com.quickgrab.controller;
 
-import com.quickgrab.domain.Restaurant;
+import com.quickgrab.controller.request.RestaurantRequest;
+import com.quickgrab.controller.response.RestaurantResponse;
 import com.quickgrab.service.restaurant.FindAllRestaurantsService;
 import com.quickgrab.service.restaurant.FindRestaurantByIdService;
+import com.quickgrab.service.restaurant.SaveRestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -18,16 +21,24 @@ public class RestaurantController {
     @Autowired
     private FindRestaurantByIdService findRestaurantByIdService;
 
+    @Autowired
+    private SaveRestaurantService saveRestaurantService;
 
-    @GetMapping()
+    @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<Restaurant> findAllRestaurants() {
+    public List<RestaurantResponse> findAllRestaurants() {
         return findAllRestaurantsService.find();
     }
     @GetMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Restaurant findRestaurantById(@PathVariable Integer id) {
+    public RestaurantResponse findRestaurantById(@PathVariable Integer id) {
         return findRestaurantByIdService.findById(id);
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public RestaurantResponse saveRestaurant(@Valid @RequestBody RestaurantRequest request) {
+        return saveRestaurantService.save(request);
     }
 
 }
