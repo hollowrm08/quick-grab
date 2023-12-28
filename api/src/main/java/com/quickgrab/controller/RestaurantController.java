@@ -29,6 +29,7 @@ public class RestaurantController {
     public List<RestaurantResponse> findAllRestaurants() {
         return findAllRestaurantsService.find();
     }
+
     @GetMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
     public RestaurantResponse findRestaurantById(@PathVariable Integer id) {
